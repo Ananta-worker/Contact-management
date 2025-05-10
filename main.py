@@ -17,8 +17,11 @@ while True:
 
     if pilihan == "1":
         # melihat kontak
-        for num, item in enumerate(kontak, start=1):
-            print(f'{num}. {item["nama"]} ({item["HP"]}, {item["email"]})')
+        if kontak:
+            for num, item in enumerate(kontak, start=1):
+                print(f'{num}. {item["nama"]} ({item["HP"]}, {item["email"]})')
+        else:
+            print("Kontak masih kosong")
 
     elif pilihan == "2":
         # menambah kontak
@@ -29,8 +32,12 @@ while True:
         kontak.append(kontak_baru)
         print("Kontak baru berhasil ditambahkan")
     elif pilihan == "3":
-        for num, item in enumerate(kontak, start=1):
-            print(f'{num}. {item["nama"]} ({item["HP"]}, {item["email"]})')
+        if kontak:
+            for num, item in enumerate(kontak, start=1):
+                print(f'{num}. {item["nama"]} ({item["HP"]}, {item["email"]})')
+        else:
+            print("Kontak masih kosong")
+            continue
 
         i_hapus = int(input("Masukkan nomor kontak yang akan dihapus: "))
         del kontak[i_hapus-1]
