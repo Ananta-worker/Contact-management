@@ -1,32 +1,40 @@
 """
 Contact Management Program: View, Add, Delete, and Save Contacts.
 """
-# kontak1 = {'nama': "Andi", 'HP': '0812374646', 'email': 'Andi@gmail.com'}
-# kontak2 = {'nama': "Baba", 'HP': '0812379867', 'email': 'Baba@gmail.com'}
-# kontak = [kontak1, kontak2]
+
+
+def melihat_data_kontak(path="data_kontak.txt"):
+    with open(path, mode='r') as file:
+        kontak = file.readlines()
+    return kontak
+
+
+def menyimpan_kontak(path="data_kontak.txt", isi=()):
+    with open(path, mode='w') as file:
+        file.writelines(isi)
+
+
 class Kontak:
     def __init__(self):
-        self.kontak=[]
+        self.kontak = melihat_data_kontak()
 
     def melihat_kontak(self):
         # melihat kontak
         if self.kontak:
             for num, item in enumerate(self.kontak, start=1):
-                print(f'{num}. {item["nama"]} ({item["HP"]}, {item["email"]})')
+                print(f'{num}. ' + item)
         else:
             print("Kontak masih kosong")
             return 1
-
 
     def menambah_kontak(self):
         # menambah kontak
         nama = input("Masukkan nama kontak yang baru: ")
         hp = input("Masukkan no. HP yang baru: ")
         email = input("Masukkan alamat email yang baru: ")
-        kontak_baru = {'nama': nama, 'HP': hp, 'email': email}
+        kontak_baru = f'{nama}, ({hp}, {email})' + '\n'
         self.kontak.append(kontak_baru)
         print("Kontak baru berhasil ditambahkan")
-
 
     def menghapus_kontak(self):
         if self.melihat_kontak() == 1:
@@ -36,9 +44,11 @@ class Kontak:
             del self.kontak[i_hapus - 1]
             print("Kontak yang dimaksud sudah di hapus")
 
+    def keluar_kontak(self):
+        menyimpan_kontak(isi=self.kontak)
+
 
 kontak_kantor = Kontak()
-
 
 while True:
     print('\nMenu Kontak')
@@ -59,6 +69,7 @@ while True:
         kontak_kantor.menghapus_kontak()
 
     elif pilihan == "4":
+        kontak_kantor.keluar_kontak()
         break
     else:
         print('Anda memasukkan pilihan yang salah')
